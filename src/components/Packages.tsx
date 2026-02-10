@@ -66,7 +66,7 @@ export function Packages() {
     return (
         <section id="packages" className="py-10 bg-brand-maroon text-white relative overflow-hidden">
             {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10 bg-[url('/images/pattern.png')] pointer-events-none" />
+            <div className="absolute inset-0 opacity-10 bg-[url('/images/pattern.svg')] pointer-events-none" />
 
             <div className="container mx-auto px-4 relative z-10">
                 {/* Carousel */}
