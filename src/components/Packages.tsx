@@ -2,6 +2,7 @@
 
 import React, { useCallback, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
+import { motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from './ui/button'
@@ -100,34 +101,28 @@ export function Packages() {
                 </div>
             </div>
 
-            {/* Image Modal */}
             {modalState && (
                 <div
-                    className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 cursor-pointer"
+                    className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
                     onClick={() => setModalState(null)}
                 >
                     <div className="relative w-full max-w-5xl h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
-                        <div className="relative w-full h-[85vh]">
-                            <Image
-                                src={modalState.images[modalState.index]}
-                                alt={`View ${modalState.index + 1}`}
-                                fill
-                                className="object-contain"
-                                priority
-                            />
-                        </div>
+                        <ZoomableImage
+                            src={modalState.images[modalState.index]}
+                            alt={`View ${modalState.index + 1}`}
+                        />
 
                         {/* Modal Navigation Buttons */}
                         {modalState.images.length > 1 && (
                             <>
                                 <button
-                                    className="absolute left-2 md:-left-12 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-colors z-50"
+                                    className="absolute left-2 md:-left-12 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-colors z-[60]"
                                     onClick={prevImage}
                                 >
                                     <ChevronLeft size={32} />
                                 </button>
                                 <button
-                                    className="absolute right-2 md:-right-12 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-colors z-50"
+                                    className="absolute right-2 md:-right-12 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-colors z-[60]"
                                     onClick={nextImage}
                                 >
                                     <ChevronRight size={32} />
@@ -137,7 +132,7 @@ export function Packages() {
 
                         {/* Close Button */}
                         <button
-                            className="absolute top-4 right-4 md:-top-10 md:-right-10 bg-white/20 hover:bg-white/40 text-white rounded-full p-2 z-50"
+                            className="absolute top-4 right-4 md:-top-10 md:-right-10 bg-white/20 hover:bg-white/40 text-white rounded-full p-2 z-[60]"
                             onClick={() => setModalState(null)}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -145,7 +140,7 @@ export function Packages() {
 
                         {/* Indicators */}
                         {modalState.images.length > 1 && (
-                            <div className="absolute -bottom-10 left-0 right-0 flex justify-center gap-2">
+                            <div className="absolute -bottom-10 left-0 right-0 flex justify-center gap-2 z-[60]">
                                 {modalState.images.map((_, idx) => (
                                     <button
                                         key={idx}
@@ -162,6 +157,74 @@ export function Packages() {
                 </div>
             )}
         </section>
+    )
+}
+
+function ZoomableImage({ src, alt }: { src: string, alt: string }) {
+    const [scale, setScale] = useState(1)
+    const [position, setPosition] = useState({ x: 0, y: 0 })
+
+    const handleZoomIn = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        setScale(prev => Math.min(prev + 0.5, 4))
+    }
+
+    const handleZoomOut = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        setScale(prev => {
+            const newScale = Math.max(prev - 0.5, 1)
+            if (newScale === 1) setPosition({ x: 0, y: 0 })
+            return newScale
+        })
+    }
+
+    const handleReset = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        setScale(1)
+        setPosition({ x: 0, y: 0 })
+    }
+
+    return (
+        <div className="relative w-full h-[85vh] overflow-hidden flex items-center justify-center">
+            {/* Zoom Controls */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-50 bg-black/50 p-2 rounded-full backdrop-blur-sm" onClick={(e) => e.stopPropagation()}>
+                <button onClick={handleZoomOut} className="p-2 text-white hover:bg-white/20 rounded-full" title="Zoom Out">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /><line x1="8" y1="11" x2="14" y2="11" /></svg>
+                </button>
+                <button onClick={handleReset} className="p-2 text-white hover:bg-white/20 rounded-full" title="Reset">
+                    <span className="text-xs font-bold">{Math.round(scale * 100)}%</span>
+                </button>
+                <button onClick={handleZoomIn} className="p-2 text-white hover:bg-white/20 rounded-full" title="Zoom In">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /><line x1="11" y1="8" x2="11" y2="14" /><line x1="8" y1="11" x2="14" y2="11" /></svg>
+                </button>
+            </div>
+
+            <motion.div
+                className="relative w-full h-full cursor-grab active:cursor-grabbing"
+                animate={{ scale, x: position.x, y: position.y }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                drag={scale > 1}
+                dragConstraints={{
+                    left: -1000 * (scale - 1),
+                    right: 1000 * (scale - 1),
+                    top: -1000 * (scale - 1),
+                    bottom: 1000 * (scale - 1),
+                }}
+                onDragEnd={(_, info) => {
+                    setPosition({ x: position.x + info.offset.x, y: position.y + info.offset.y })
+                }}
+                onClick={(e) => e.stopPropagation()}
+            >
+                <Image
+                    src={src}
+                    alt={alt}
+                    fill
+                    className="object-contain"
+                    priority
+                    draggable={false}
+                />
+            </motion.div>
+        </div>
     )
 }
 
