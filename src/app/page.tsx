@@ -1,11 +1,10 @@
 import { Hero } from "@/components/Hero";
-
 import { Menu } from "@/components/Menu";
 import { Packages } from "@/components/Packages";
 import { Legal } from "@/components/Legal";
+import { SocialResponsibility } from "@/components/SocialResponsibility";
 import { Testimonials } from "@/components/Testimonials";
 import { Footer } from "@/components/Footer";
-
 import { PartnershipInfo } from "@/components/PartnershipInfo";
 
 export default function Home() {
@@ -14,6 +13,7 @@ export default function Home() {
       <Hero />
       <PartnershipInfo />
       <Legal />
+      <SocialResponsibility />
       <Testimonials />
       <Packages />
 
