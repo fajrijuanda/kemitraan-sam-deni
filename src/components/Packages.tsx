@@ -14,7 +14,7 @@ const packages = [
         name: "Paket Ekonomis",
         price: "9.8 Juta",
         images: ["/images/paket_ekonomis.png", "/images/keuntungan.png"],
-        message: "Halo, saya tertarik dengan Paket Kemitraan Ekonomis (9.8 Juta).",
+        message: "Halo, saya tertarik dengan Paket Kemitraan Ekonomis Sam Deni Homemade (Rp9.8 Jt).",
         phoneNumber: "6285117784817"
     },
     {
@@ -22,7 +22,7 @@ const packages = [
         name: "Paket Eksekutif",
         price: "30 Juta",
         images: ["/images/paket_eksekutif.png", "/images/paket_eksekutif_2.png"],
-        message: "Halo, saya tertarik dengan Paket Kemitraan Eksekutif (30 Juta).",
+        message: "Halo, saya tertarik dengan Paket Kemitraan Eksekutif Sam Deni Homemade (Rp30 Jt).",
         phoneNumber: "628112835789"
     },
     {
@@ -30,7 +30,7 @@ const packages = [
         name: "Paket Eksklusif",
         price: "50 Juta",
         images: ["/images/paket_eksklusif.png", "/images/paket_ekslusif_2.png"],
-        message: "Halo, saya tertarik dengan Paket Kemitraan Eksklusif (50 Juta).",
+        message: "Halo, saya tertarik dengan Paket Kemitraan Eksklusif Sam Deni Homemade (Rp50 Jt).",
         phoneNumber: "628112835789"
     },
 ]
