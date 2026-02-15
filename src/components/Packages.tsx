@@ -14,21 +14,24 @@ const packages = [
         name: "Paket Ekonomis",
         price: "9.8 Juta",
         images: ["/images/paket_ekonomis.png", "/images/keuntungan.png"],
-        message: "Halo, saya tertarik dengan Paket Kemitraan Ekonomis (9.8 Juta)."
+        message: "Halo, saya tertarik dengan Paket Kemitraan Ekonomis (9.8 Juta).",
+        phoneNumber: "6285117784817"
     },
     {
         id: 2,
         name: "Paket Eksekutif",
         price: "30 Juta",
         images: ["/images/paket_eksekutif.png", "/images/paket_eksekutif_2.png"],
-        message: "Halo, saya tertarik dengan Paket Kemitraan Eksekutif (30 Juta)."
+        message: "Halo, saya tertarik dengan Paket Kemitraan Eksekutif (30 Juta).",
+        phoneNumber: "628112835789"
     },
     {
         id: 3,
         name: "Paket Eksklusif",
         price: "50 Juta",
         images: ["/images/paket_eksklusif.png", "/images/paket_ekslusif_2.png"],
-        message: "Halo, saya tertarik dengan Paket Kemitraan Eksklusif (50 Juta)."
+        message: "Halo, saya tertarik dengan Paket Kemitraan Eksklusif (50 Juta).",
+        phoneNumber: "628112835789"
     },
 ]
 
@@ -277,7 +280,7 @@ function PackageCard({ pkg, onImageClick }: { pkg: typeof packages[0], onImageCl
 
             <div className="p-4 bg-transparent text-center -mt-12 relative z-10 pointer-events-none">
                 <div className="pointer-events-auto">
-                    <LinkWrapper message={pkg.message}>
+                    <LinkWrapper message={pkg.message} phoneNumber={pkg.phoneNumber}>
                         <Button className="w-full text-lg font-bold bg-green-600 hover:bg-green-700 h-12 rounded-full shadow-lg border-2 border-white">
                             Pilih Paket Ini
                         </Button>
@@ -288,10 +291,10 @@ function PackageCard({ pkg, onImageClick }: { pkg: typeof packages[0], onImageCl
     );
 }
 
-function LinkWrapper({ message, children }: { message: string, children: React.ReactNode }) {
+function LinkWrapper({ message, phoneNumber, children }: { message: string, phoneNumber: string, children: React.ReactNode }) {
     // Encode message for WhatsApp
     const encodedMessage = encodeURIComponent(message);
-    const waLink = `https://wa.me/6285117784817?text=${encodedMessage}`;
+    const waLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
     return (
         <a href={waLink} target="_blank" rel="noopener noreferrer" className="block w-full">
