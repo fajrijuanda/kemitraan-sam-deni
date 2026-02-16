@@ -258,7 +258,7 @@ function PackageCard({ pkg, onImageClick }: { pkg: typeof packages[0], onImageCl
                 {/* Pagination Dots */}
                 {pkg.images.length > 1 && (
                     <div
-                        className="absolute bottom-20 left-0 right-0 z-20 flex justify-center gap-2"
+                        className="absolute bottom-20 left-0 right-0 z-20 flex justify-center gap-3"
                         onClick={(e) => e.stopPropagation()} // Prevent modal open when clicking dots
                     >
                         {pkg.images.map((_, index) => (
@@ -266,9 +266,9 @@ function PackageCard({ pkg, onImageClick }: { pkg: typeof packages[0], onImageCl
                                 key={index}
                                 onClick={() => setCurrentImageIndex(index)}
                                 className={cn(
-                                    "w-3 h-3 rounded-full transition-all shadow-md",
+                                    "w-4 h-4 md:w-5 md:h-5 rounded-full transition-all shadow-md ring-2 ring-black/20",
                                     index === currentImageIndex
-                                        ? "bg-brand-gold w-6"
+                                        ? "bg-brand-gold w-8 md:w-10"
                                         : "bg-white/70 hover:bg-white"
                                 )}
                                 aria-label={`Go to slide ${index + 1}`}
